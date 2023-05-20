@@ -52,8 +52,8 @@ def extractText():
         textContent = getTextContent(data)
         print(textContent)
         return jsonify({'status': 'success', 'data': textContent})
-    except Exception as e:
-        return jsonify({'status': 'failed', 'error': str(e)})
+    except Exception as err:
+        return jsonify({'status': 'failed', 'error': str(err)})
 
 if __name__ == "__main__":
     app.run()
