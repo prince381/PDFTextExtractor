@@ -38,7 +38,7 @@ def getTextContent(data):
             scannedContent = extractScannedDocContent(bufferData)
             return scannedContent
     except Exception as e:
-        return ''
+        raise Exception(str(e))
     
 
 @app.route('/')
