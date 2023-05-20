@@ -19,6 +19,7 @@ def extractScannedDocContent(arrayBuffer):
     pdf = PdfReader(arrayBuffer)
     content = ""
     for i in range(0, len(pdf.pages)):
+        print('Extracting page:', i)
         images = pdf.pages[i].images
         for j in range(0, len(images)):
             imageData = images[j].data
@@ -35,7 +36,9 @@ def getTextContent(data):
         if len(normalText) > 300:
             return normalText
         else:
+            print('Content not found in normal pdf, trying scanned pdf...')
             scannedContent = extractScannedDocContent(bufferData)
+            print('Contents scanned!')
             return scannedContent
     except Exception as e:
         raise Exception(str(e))
@@ -47,13 +50,13 @@ def index():
 
 @app.route('/extractText', methods=['POST'])
 def extractText():
+    print('Extracting text from pdf file...')
     try:
         data = request.get_json()
         textContent = getTextContent(data)
-        print(textContent)
         return jsonify({'status': 'success', 'data': textContent})
     except Exception as err:
         return jsonify({'status': 'failed', 'error': str(err)})
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True, host='0.0.0.0', port=5000)
