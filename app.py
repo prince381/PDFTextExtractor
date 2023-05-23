@@ -33,13 +33,14 @@ def getTextContent(data):
         bufferData = base64.b64decode(base64String)
         bufferData = io.BytesIO(bufferData)
         normalText = extractContent(bufferData)
-        if len(normalText) > 300:
-            return normalText
-        else:
-            print('Content not found in normal pdf, trying scanned pdf...')
-            scannedContent = extractScannedDocContent(bufferData)
-            print('Contents scanned!')
-            return scannedContent
+        return normalText
+        # if len(normalText) > 300:
+        #     return normalText
+        # else:
+        #     print('Content not found in normal pdf, trying scanned pdf...')
+        #     scannedContent = extractScannedDocContent(bufferData)
+        #     print('Contents scanned!')
+        #     return scannedContent
     except Exception as e:
         raise Exception(str(e))
     
